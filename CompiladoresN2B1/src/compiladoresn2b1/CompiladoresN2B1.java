@@ -70,21 +70,50 @@ public class CompiladoresN2B1 {
             quebra.add("]");
             quebra.add("]");
             quebra.add(";");
+            quebra.add("\"");
+            quebra.add("=");
+            quebra.add("!");
+            quebra.add("?");
+            quebra.add("+");
+            quebra.add("-");
+            quebra.add("*");
+            quebra.add("/");
+            quebra.add("|");
+            quebra.add("&");
+            
+            Set<String> juction = new HashSet<String>();
+            juction.add("|");
+            juction.add("=");
+            juction.add("&");
             
             for (String caracter : caracteres) {
                 if (quebra.contains(caracter)) {
                     if (!caracter.equals(" ")) {
-                        lexema += caracter + "\n";
+                        lexema +=  "\n" + caracter + "\n";
                     }
                     
                 } else {
-                    lexema += caracter + "\n";
+                    lexema += caracter;
                 }
                 
             }
             
+            String lexema2 = "";
+            String last = "";
+            for (String palavra : lexema.split("\n")) {
+                if (!palavra.equals("")) {
+                    if (juction.contains(palavra) && palavra == String.valueOf(last.charAt(0))) {
+                        last = palavra;
+                        lexema2 += palavra;
+                    } else {
+                        lexema2 += palavra + "\n";
+                    }
+                    
+                }
+            }
+            
             FileWriter myWriter2 = new FileWriter("lexemas.txt");
-            myWriter2.write(lexema);
+            myWriter2.write(lexema2);
             myWriter2.close();
                 
         } catch (IOException e) {
