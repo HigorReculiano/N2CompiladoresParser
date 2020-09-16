@@ -22,6 +22,22 @@ public class CompiladoresN2B1 {
                     //Removendo comentários
                     if (linha.indexOf("//") != -1) {
                         linha = linha.replace(linha.substring(linha.indexOf("//"), linha.length()), "");
+                    } else if (linha.indexOf("/*") != -1) {
+                        linha = linha.substring(0, linha.indexOf("/*"));
+                        String comentarios = "";
+                        Boolean continuarLeitura = true;
+                        while (continuarLeitura) {
+                            comentarios = lerArq.readLine();
+                            if (comentarios.indexOf("*/") != -1) {
+                                if (comentarios.length() > 0) {
+                                    linha += comentarios.substring(comentarios.indexOf("*/") + 2, comentarios.length());
+                                }
+                                    
+                                continuarLeitura = false;
+                            } else {
+                                continuarLeitura = true;
+                            }
+                        }
                     }
                     //Removendo tabs e mais de um espaço em branco seguido
                     code += linha.replaceAll("\\t", "").replaceAll("\\s+", " ");
@@ -30,7 +46,6 @@ public class CompiladoresN2B1 {
                 }
                 
             }
-            System.out.printf("code -> " +code);
             arq.close();
             
             FileWriter myWriter = new FileWriter("input_scring.txt");
@@ -40,7 +55,6 @@ public class CompiladoresN2B1 {
         } catch (IOException e) {
             System.err.printf(e.getMessage());
         }
-        
     }
     
 }
