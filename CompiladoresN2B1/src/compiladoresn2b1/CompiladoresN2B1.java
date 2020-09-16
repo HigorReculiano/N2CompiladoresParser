@@ -102,11 +102,21 @@ public class CompiladoresN2B1 {
             String last = "";
             for (String palavra : lexema.split("\n")) {
                 if (!palavra.equals("")) {
-                    if (juction.contains(palavra) && palavra == String.valueOf(last.charAt(0))) {
-                        last = palavra;
-                        lexema2 += palavra;
+                    if (juction.contains(palavra)) {
+                        if (!last.equals("") && palavra == String.valueOf(last.charAt(0))) {
+                            lexema2 += palavra;
+                        } else {
+                            if (last.equals("")) {
+                                lexema2 += "\n" + palavra;
+                            } else {
+                                lexema2 += palavra;
+                            }
+                            
+                            last = palavra;
+                        } 
                     } else {
-                        lexema2 += palavra + "\n";
+                        lexema2 += "\n" + palavra;
+                        last = "";
                     }
                     
                 }
