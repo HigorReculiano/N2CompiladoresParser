@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CompiladoresN2B1 {
 
@@ -51,6 +53,39 @@ public class CompiladoresN2B1 {
             FileWriter myWriter = new FileWriter("input_scring.txt");
             myWriter.write(code);
             myWriter.close();
+            
+            
+            String[] caracteres = code.split("");
+            String lexema = "";
+            
+            Set<String> quebra = new HashSet<String>();
+            quebra.add(" ");
+            quebra.add("{");
+            quebra.add("}");
+            quebra.add(".");
+            quebra.add(",");
+            quebra.add("(");
+            quebra.add(")");
+            quebra.add("[");
+            quebra.add("]");
+            quebra.add("]");
+            quebra.add(";");
+            
+            for (String caracter : caracteres) {
+                if (quebra.contains(caracter)) {
+                    if (!caracter.equals(" ")) {
+                        lexema += caracter + "\n";
+                    }
+                    
+                } else {
+                    lexema += caracter + "\n";
+                }
+                
+            }
+            
+            FileWriter myWriter2 = new FileWriter("lexemas.txt");
+            myWriter2.write(lexema);
+            myWriter2.close();
                 
         } catch (IOException e) {
             System.err.printf(e.getMessage());
